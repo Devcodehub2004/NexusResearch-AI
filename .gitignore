@@ -1,0 +1,25 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Environment Variables (Secrets)
+.env
+.env.*
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Streamlit config / cache
+.streamlit/secrets.toml
+
+# Research history local cache (optional, keep clean)
+research_history.json
+
+# OS files
+.DS_Store
+Thumbs.db
