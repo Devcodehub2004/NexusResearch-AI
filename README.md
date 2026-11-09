@@ -27,6 +27,9 @@ flowchart LR
 
 ---
 
+
+**Demo walkthrough:** [60-second demo script and screenshot checklist](docs/DEMO_GUIDE.md). No public demo video or app screenshots are claimed until actual captures are added.
+
 ## How it works
 
 ```mermaid
