@@ -95,7 +95,7 @@ source .venv/bin/activate      # Windows: .venv\Scripts\activate
 ### 3. Install dependencies
 
 ```bash
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 ### 4. Set up environment variables
