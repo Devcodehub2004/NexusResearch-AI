@@ -1,10 +1,34 @@
 # ⚡ NexusResearch-AI
 
-A multi-agent AI research pipeline that takes a topic, researches it end-to-end, and returns a fact-checked report — with a live Streamlit dashboard to watch the agents work.
+A multi-agent AI research pipeline that takes a topic, researches it end-to-end, and returns a draft report with AI-generated critique — with a live Streamlit dashboard to watch the agents work.
 
 > Search → Read → Write → Critique — four agents, one pipeline.
 
 ---
+
+## AI engineering overview
+
+This is a **four-stage research workflow**, not a claim of autonomous fact-checking. It uses Tavily web search, a reader agent that scrapes a selected page, a report-writing chain and a critique chain. Critic feedback is **LLM-generated** and is not independent fact verification.
+
+```mermaid
+flowchart LR
+    Q[Research topic] --> S[Search agent - Tavily]
+    S --> R[Reader agent - source text]
+    R --> W[Writer chain - report]
+    W --> C[Critic chain - LLM feedback]
+    C --> H[Saved history and Streamlit dashboard]
+```
+
+**Tools:** Python · LangChain · Groq-hosted `openai/gpt-oss-20b` · Tavily · Streamlit.
+
+**Engineering work:** Agent/tool orchestration, prompt templates and model chains, research-run state, status visualization and Markdown report export.
+
+**Limitations:** Web search results and scraped content may be incomplete, stale or inaccurate. The critic is an LLM and does not independently verify citations. External API keys and internet access are required. No benchmarked factual accuracy or production reliability is claimed.
+
+---
+
+
+**Demo walkthrough:** [60-second demo script and screenshot checklist](docs/DEMO_GUIDE.md). No public demo video or app screenshots are claimed until actual captures are added.
 
 ## How it works
 
@@ -42,7 +66,7 @@ The final report, critic feedback, and raw intermediate results are saved to his
 ```
 research_agent/
 ├── .env                # API keys / secrets (not committed)
-├── requirement.txt     # Python dependencies
+├── requirements.txt     # Python dependencies
 ├── tools.py            # Search / scraping tools used by the agents
 ├── agents.py           # Agent + chain definitions (search, reader, writer, critic)
 ├── pipeline.py         # CLI entry point — runs the full pipeline in the terminal
@@ -57,8 +81,8 @@ research_agent/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd research_agent
+git clone https://github.com/Devcodehub2004/NexusResearch-AI.git
+cd NexusResearch-AI
 ```
 
 ### 2. Create a virtual environment
@@ -79,12 +103,11 @@ pip install -r requirement.txt
 Create a `.env` file in the project root:
 
 ```env
-# Replace with whatever keys your agents.py / tools.py actually require
-OPENAI_API_KEY=your_key_here
-# e.g. TAVILY_API_KEY=your_key_here
+GROQ_API_KEY=your_groq_api_key
+TAVILY_API_KEY=your_tavily_api_key
 ```
 
-> ⚠️ **Note:** I don't have visibility into your `tools.py` / `agents.py`, so the exact variable names above are placeholders — swap them for whatever keys your code actually reads.
+> The key names above match the environment variables read by `agents.py` and `tools.py`. Keep `.env` out of version control.
 
 ---
 
